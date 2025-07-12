@@ -20,23 +20,47 @@ body {
   align-items: center;
   text-align: center;
   position: relative;
-  padding: 2rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding: 2rem;
+  }
 }
 
 .quiz-screen {
   z-index: 2;
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .quiz-screen {
+    padding: 2rem;
+  }
 }
 
 .result-card,
 .badge-container {
   background: linear-gradient(135deg, #0a0808 60%, #181a1b 100%);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1.1rem;
   box-shadow: 0 2px 16px 0 #0008, 0 1px 4px 0 #0ff2;
   border: 1.5px solid #0ff4;
   color: #fff;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .result-card,
+  .badge-container {
+    padding: 2rem;
+  }
 }
 
 /* Soften heading glow */
@@ -76,6 +100,7 @@ body {
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 0 0px #0ff0;
   position: relative;
+  text-align: left;
 }
 .option-label:hover {
   background: rgba(0, 255, 255, 0.07);
@@ -94,6 +119,7 @@ body {
   align-items: center;
   justify-content: center;
   margin-right: 0.5rem;
+  flex-shrink: 0;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .custom-radio-checked {
@@ -117,6 +143,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
 }
 
 .glow-border {
@@ -191,18 +218,29 @@ body {
 input[type="text"],
 textarea {
   width: 100%;
-  padding: 1.1rem 1.2rem;
+  padding: 1rem 1.2rem;
   color: #fff;
   background: #0a0808;
   border-radius: 0.7rem;
   border: 1.5px solid #333;
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-top: 1rem;
   outline: none;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 2px #0002;
   resize: none;
 }
+
+@media (min-width: 768px) {
+  .answer-box,
+  .name-input,
+  input[type="text"],
+  textarea {
+    padding: 1.1rem 1.2rem;
+    font-size: 1.05rem;
+  }
+}
+
 .answer-box:focus,
 .name-input:focus,
 input[type="text"]:focus,
@@ -227,7 +265,18 @@ button {
   border: 1.5px solid #181a1b;
   transition: background 0.2s, box-shadow 0.2s, border-radius 0.2s, border 0.2s,
     color 0.2s;
+  font-size: 0.9rem;
 }
+
+@media (min-width: 768px) {
+  .btn,
+  .btn-green,
+  .btn-secondary,
+  button {
+    font-size: 1rem;
+  }
+}
+
 .btn:hover,
 button:hover {
   background: #181a1b;
@@ -248,8 +297,51 @@ button {
 }
 
 .question-text {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .question-text {
+    font-size: 1.25rem;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+  .app-container {
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .quiz-screen {
+    margin-top: 0;
+  }
+
+  .result-card,
+  .badge-container {
+    margin: 1rem auto;
+  }
+
+  .options-stack {
+    gap: 0.5rem;
+  }
+
+  .option-label {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .custom-radio {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .custom-radio-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+  }
 }

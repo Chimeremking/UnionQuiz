@@ -114,26 +114,26 @@ const WelcomePage = ({ onContinue }) => (
 			initial={{ scale: 0.96, opacity: 0 }}
 			animate={{ scale: 1, opacity: 1 }}
 			transition={{ duration: 0.7, delay: 0.2, ease: 'anticipate' }}
-			className="z-10 backdrop-blur-lg bg-gradient-to-b from-white/5 to-black/10 border border-white/20 p-10 rounded-3xl shadow-2xl max-w-xl text-center mx-auto"
+			className="z-10 backdrop-blur-lg bg-gradient-to-b from-white/5 to-black/10 border border-white/20 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl max-w-sm md:max-w-xl text-center mx-auto w-full"
 		>
-			<div className="mb-6">
-				<h1 className="text-4xl font-extrabold text-cyan-400 mb-2 tracking-tight drop-shadow-lg" style={{ letterSpacing: '0.01em' }}>
+			<div className="mb-4 md:mb-6">
+				<h1 className="text-2xl md:text-4xl font-extrabold text-cyan-400 mb-2 tracking-tight drop-shadow-lg" style={{ letterSpacing: '0.01em' }}>
 					Union Believer Quiz Tool
 				</h1>
 			</div>
-			<h1 className="text-5xl font-bold text-glow mb-6 tracking-tight">
+			<h1 className="text-3xl md:text-5xl font-bold text-glow mb-4 md:mb-6 tracking-tight">
 				Welcome to the Union Believer Quiz <span className="align-middle">🔮</span>
 			</h1>
-			<p className="text-lg leading-relaxed mb-4 text-gray-200">
-				You think you know Union? Let’s find out. <span className="align-middle">💭</span> This isn’t just any quiz —
-				it’s a community check-in, a lore tap-in, and a badge of true zkGM belief.
+			<p className="text-base md:text-lg leading-relaxed mb-3 md:mb-4 text-gray-200">
+				You think you know Union? Let's find out. <span className="align-middle">💭</span> This isn't just any quiz —
+				it's a community check-in, a lore tap-in, and a badge of true zkGM belief.
 			</p>
-			<p className="text-base text-gray-400 mb-6">
+			<p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
 				Answer <span className="font-semibold text-cyan-400">15</span> questions about Union's chain moves and community magic. Score
-				high, and you’ll earn a custom badge proving you’ve been <em>building where it matters</em>.
+				high, and you'll earn a custom badge proving you've been <em>building where it matters</em>.
 			</p>
 			<motion.p
-				className="text-md text-cyan-400 italic mb-8 animate-pulse"
+				className="text-sm md:text-md text-cyan-400 italic mb-6 md:mb-8 animate-pulse"
 				initial={{ opacity: 0, y: 10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ delay: 0.7 }}
@@ -144,7 +144,7 @@ const WelcomePage = ({ onContinue }) => (
 				whileHover={{ scale: 1.07 }}
 				whileTap={{ scale: 0.97 }}
 				onClick={onContinue}
-				className="px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-blue-500/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2"
+				className="px-6 md:px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-gray-600/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 text-sm md:text-base"
 			>
 				🚀 Test My Knowledge
 			</motion.button>
@@ -165,9 +165,9 @@ const NameInputPage = ({ name, setName, onConfirm }) => (
 			initial={{ scale: 0.96, opacity: 0 }}
 			animate={{ scale: 1, opacity: 1 }}
 			transition={{ duration: 0.7, delay: 0.2, ease: 'anticipate' }}
-			className="z-10 backdrop-blur-lg bg-white/10 border border-white/20 p-10 rounded-2xl shadow-lg text-center max-w-md mx-auto relative"
+			className="z-10 backdrop-blur-lg bg-white/10 border border-white/20 p-6 md:p-10 rounded-2xl shadow-lg text-center max-w-sm md:max-w-md mx-auto relative w-full"
 		>
-			<h2 className="text-3xl font-bold text-glow mb-6 tracking-tight">
+			<h2 className="text-2xl md:text-3xl font-bold text-glow mb-4 md:mb-6 tracking-tight">
 				What's your name, Believer? <span className="align-middle">✨</span>
 			</h2>
 			<input
@@ -181,7 +181,7 @@ const NameInputPage = ({ name, setName, onConfirm }) => (
 				whileHover={{ scale: 1.07 }}
 				whileTap={{ scale: 0.97 }}
 				onClick={() => name.trim().length > 0 && onConfirm()}
-				className="px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-blue-500/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 mt-8"
+				className="px-6 md:px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-gray-600/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 mt-6 md:mt-8 text-sm md:text-base"
 			>
 				✅ Proceed
 			</motion.button>
@@ -360,7 +360,7 @@ export default function UnionBelieverQuiz() {
 					<motion.div
 						animate={{ rotate: 360 }}
 						transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-						style={{ width: 60, height: 60, borderRadius: '50%', border: '4px solid #0ff', borderTop: '4px solid #23272f', marginBottom: 24 }}
+						style={{ width: 60, height: 60, borderRadius: '50%', border: '4px solid #0ff', borderTop: '4px solid #181a1b', marginBottom: 24 }}
 					/>
 					<div className="text-cyan-400 text-lg font-semibold mt-2">Generating your card...</div>
 				</motion.div>
@@ -369,27 +369,27 @@ export default function UnionBelieverQuiz() {
 					initial={{ opacity: 0, scale: 0.97 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5, ease: 'easeOut' }}
-					className="flex flex-col items-center"
+					className="flex flex-col items-center w-full max-w-sm md:max-w-md mx-auto"
 				>
 					<div className="mb-4 text-center">
-						<div className="text-2xl font-bold mb-2 text-cyan-400">Hello, {name}!</div>
-						<div className="text-lg text-white mb-1">Your score was <span className="font-bold">{score}/100</span> and you are now:</div>
-						<div className="text-xl font-bold text-glow mb-2">{title}</div>
-						<div className="text-base text-gray-300">Spread the word and keep believing in Union!</div>
+						<div className="text-xl md:text-2xl font-bold mb-2 text-cyan-400">Hello, {name}!</div>
+						<div className="text-base md:text-lg text-white mb-1">Your score was <span className="font-bold">{score}/100</span> and you are now:</div>
+						<div className="text-lg md:text-xl font-bold text-glow mb-2">{title}</div>
+						<div className="text-sm md:text-base text-gray-300">Spread the word and keep believing in Union!</div>
 					</div>
-					<div className="mb-6">
+					<div className="mb-6 w-full">
 						<Badge title={title} score={score} name={name} isLive={true} />
 					</div>
-					<div className="flex flex-wrap gap-3 justify-center w-full max-w-xs">
-						<button onClick={handleImage} className="btn bg-cyan-500/80 hover:bg-cyan-400/80 text-white flex-1 min-w-[140px]">
+					<div className="flex flex-col md:flex-row gap-3 justify-center w-full max-w-xs">
+						<button onClick={handleImage} className="btn bg-cyan-500/80 hover:bg-cyan-400/80 text-white flex-1 min-w-[140px] text-sm">
 							⬇️ Download Card
 						</button>
-						<button onClick={handleShare} className="btn bg-blue-500/80 hover:bg-blue-400/80 text-white flex-1 min-w-[140px]">
+						<button onClick={handleShare} className="btn bg-gray-600/80 hover:bg-gray-500/80 text-white flex-1 min-w-[140px] text-sm">
 							📤 Share Card
 						</button>
 						<button
 							onClick={() => window.location.reload()}
-							className="btn bg-gray-700/80 hover:bg-gray-600/80 text-white flex-1 min-w-[140px]"
+							className="btn bg-gray-700/80 hover:bg-gray-600/80 text-white flex-1 min-w-[140px] text-sm"
 						>
 							🔁 Restart Quiz
 						</button>
@@ -404,9 +404,9 @@ export default function UnionBelieverQuiz() {
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, ease: 'easeOut' }}
-					className="quiz-screen card-animated z-10 backdrop-blur-md bg-white/10 border border-white/20 p-8 rounded-2xl shadow-lg max-w-xl mx-auto relative mt-8"
+					className="quiz-screen card-animated z-10 backdrop-blur-md bg-white/10 border border-white/20 p-4 md:p-8 rounded-2xl shadow-lg max-w-sm md:max-w-xl mx-auto relative mt-4 md:mt-8 w-full"
 				>
-					<h2 className="text-xl mb-4 text-glow font-bold">
+					<h2 className="text-lg md:text-xl mb-4 text-glow font-bold">
 						{`Question ${step + 1} of ${questions.length}`}
 					</h2>
 					<p className="question-text">
@@ -446,22 +446,22 @@ export default function UnionBelieverQuiz() {
 							style={{ minHeight: 60, maxHeight: 120, resize: 'vertical' }}
 						/>
 					)}
-					<div className="flex justify-between mt-6">
+					<div className="flex flex-col md:flex-row justify-between gap-3 mt-6">
 						<button
 							onClick={() => setStep(step - 1)}
 							disabled={step === 0}
-							className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl"
+							className="px-4 md:px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl text-sm"
 						>
 							Previous
 						</button>
 						{step < questions.length - 1 ? (
-							<button onClick={() => setStep(step + 1)} className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl">
+							<button onClick={() => setStep(step + 1)} className="px-4 md:px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl text-sm">
 								Next
 							</button>
 						) : (
 							<button
 								onClick={evaluateScore}
-								className="px-6 py-3 bg-cyan-500/80 backdrop-blur-lg border border-cyan-400/40 rounded-full text-white hover:bg-cyan-500 transition-all duration-300 shadow-md hover:shadow-xl"
+								className="px-4 md:px-6 py-3 bg-cyan-500/80 backdrop-blur-lg border border-cyan-400/40 rounded-full text-white hover:bg-cyan-500 transition-all duration-300 shadow-md hover:shadow-xl text-sm"
 							>
 								Submit
 							</button>
