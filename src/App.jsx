@@ -8,6 +8,7 @@ import ZkgmAnimation from './ZkgmAnimation';
 // import '@fontsource/geist';
 import { motion } from 'framer-motion';
 import Badge from './Badge.jsx';
+import * as ReactDOM from 'react-dom/client';
 
 const questions = [
 	{
@@ -36,8 +37,13 @@ const questions = [
 	},
 	{
 		question: 'What is your rank on the leaderboard?',
-		input: true,
-		leaderboardSensitive: true,
+		options: [
+			'Rank 1 to 100',
+			'Rank 100 to 1,000',
+			'Rank 1,000 to 10,000',
+			'Rank 10,000 to 100,000',
+		],
+		leaderboardRank: true,
 	},
 	{
 		question: 'Which chain below was part of the V1 testnet action?',
@@ -50,7 +56,7 @@ const questions = [
 	},
 	{
 		question: 'When did you join Union Build testnet?',
-		input: true,
+		options: ['2023', '2025', '2028', '2024'],
 		yearSensitive: true,
 	},
 	{
@@ -110,6 +116,11 @@ const WelcomePage = ({ onContinue }) => (
 			transition={{ duration: 0.7, delay: 0.2, ease: 'anticipate' }}
 			className="z-10 backdrop-blur-lg bg-gradient-to-b from-white/5 to-black/10 border border-white/20 p-10 rounded-3xl shadow-2xl max-w-xl text-center mx-auto"
 		>
+			<div className="mb-6">
+				<h1 className="text-4xl font-extrabold text-cyan-400 mb-2 tracking-tight drop-shadow-lg" style={{ letterSpacing: '0.01em' }}>
+					Union Believer Quiz Tool
+				</h1>
+			</div>
 			<h1 className="text-5xl font-bold text-glow mb-6 tracking-tight">
 				Welcome to the Union Believer Quiz <span className="align-middle">🔮</span>
 			</h1>
@@ -157,7 +168,7 @@ const NameInputPage = ({ name, setName, onConfirm }) => (
 			className="z-10 backdrop-blur-lg bg-white/10 border border-white/20 p-10 rounded-2xl shadow-lg text-center max-w-md mx-auto relative"
 		>
 			<h2 className="text-3xl font-bold text-glow mb-6 tracking-tight">
-				What’s your name, Believer? <span className="align-middle">✨</span>
+				What's your name, Believer? <span className="align-middle">✨</span>
 			</h2>
 			<input
 				type="text"
@@ -178,6 +189,39 @@ const NameInputPage = ({ name, setName, onConfirm }) => (
 	</div>
 );
 
+const NotBelieverModal = ({ onExit }) => (
+	<motion.div
+		initial={{ opacity: 0 }}
+		animate={{ opacity: 1 }}
+		className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+	>
+		<motion.div
+			initial={{ scale: 0.8, opacity: 0 }}
+			animate={{ scale: 1, opacity: 1 }}
+			transition={{ type: "spring", damping: 25, stiffness: 300 }}
+			className="bg-gradient-to-b from-red-900/90 to-red-800/90 border-2 border-red-500 p-8 rounded-2xl shadow-2xl max-w-md mx-4 text-center"
+		>
+			<div className="text-6xl mb-4">🚫</div>
+			<h2 className="text-2xl font-bold text-red-200 mb-4">YOU ARE NOT A BELIEVER</h2>
+			<p className="text-red-100 mb-6 leading-relaxed">
+				Your score is below 25. You clearly don't know Union well enough to be considered a believer.
+			</p>
+			<p className="text-red-200 mb-6 font-semibold">
+				Please exit this site immediately. No profile card for you.
+			</p>
+			<p className="text-red-300 mb-8 italic">
+				Go and do something with your life.
+			</p>
+			<button
+				onClick={onExit}
+				className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors duration-200"
+			>
+				EXIT SITE NOW
+			</button>
+		</motion.div>
+	</motion.div>
+);
+
 export default function UnionBelieverQuiz() {
 	const [step, setStep] = useState(-1);
 	const [name, setName] = useState('');
@@ -185,6 +229,8 @@ export default function UnionBelieverQuiz() {
 	const [score, setScore] = useState(null);
 	const [title, setTitle] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [downloadNode, setDownloadNode] = useState(null);
+	const [showNotBelieverModal, setShowNotBelieverModal] = useState(false);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -207,10 +253,16 @@ export default function UnionBelieverQuiz() {
 				if (!ans) return;
 				if (q.answer && ans === q.answer) total += 10;
 				if (q.yearSensitive) {
-					if (typeof ans === 'string') {
-						if (ans.includes('2024')) total += 7;
-						else if (ans.includes('2025')) total += 3;
-					}
+					if (ans === '2024') total += 7;
+					else if (ans === '2025') total += 3;
+					else if (ans === '2023') total += 5;
+					else total += 1;
+				}
+				if (q.leaderboardRank) {
+					if (ans === 'Rank 1 to 100') total += 7;
+					else if (ans === 'Rank 100 to 1,000') total += 5;
+					else if (ans === 'Rank 1,000 to 10,000') total += 3;
+					else total += 1;
 				}
 				if (q.leaderboardSensitive) {
 					const rank = parseInt(ans);
@@ -223,6 +275,14 @@ export default function UnionBelieverQuiz() {
 			total += Math.floor(Math.random() * 20);
 			total = Math.min(100, total);
 			setScore(total);
+
+			// Check if score is below 25
+			if (total < 25) {
+				setShowNotBelieverModal(true);
+				setLoading(false);
+				return;
+			}
+
 			if (total >= 91) setTitle('👑 ZK Ascendant');
 			else if (total >= 76) setTitle('🧙‍♂️ Trusted Relayer');
 			else if (total >= 61) setTitle('⚔️ Bridge Reformer');
@@ -234,14 +294,52 @@ export default function UnionBelieverQuiz() {
 	};
 
 	const handleImage = () => {
+		// Render a hidden Badge for download
+		const temp = document.createElement('div');
+		temp.style.position = 'fixed';
+		temp.style.left = '-9999px';
+		document.body.appendChild(temp);
+		import('./Badge.jsx').then(({ default: Badge }) => {
+			const reactRoot = ReactDOM.createRoot(temp);
+			reactRoot.render(<Badge title={title} score={score} name={name} isLive={false} />);
+			setDownloadNode(temp.firstChild); // Store the node for removal
+			setTimeout(() => {
+				html2canvas(temp.firstChild).then((canvas) => {
+					const link = document.createElement('a');
+					link.download = 'union_believer_badge.png';
+					link.href = canvas.toDataURL();
+					link.click();
+					reactRoot.unmount();
+					document.body.removeChild(temp);
+				});
+			}, 300); // Wait for font and images to load
+		});
+	};
+
+	const handleShare = async () => {
 		const badge = document.getElementById('result-badge');
 		if (!badge) return;
-		html2canvas(badge).then((canvas) => {
-			const link = document.createElement('a');
-			link.download = 'union_believer_badge.png';
-			link.href = canvas.toDataURL();
-			link.click();
+		const canvas = await html2canvas(badge);
+		canvas.toBlob(async (blob) => {
+			if (navigator.canShare && navigator.canShare({ files: [new File([blob], 'union_believer_badge.png', { type: blob.type })] })) {
+				const file = new File([blob], 'union_believer_badge.png', { type: blob.type });
+				await navigator.share({
+					files: [file],
+					title: 'Union Believer Badge',
+					text: 'Check out my Union Believer Badge!'
+				});
+			} else {
+				// fallback to download
+				const link = document.createElement('a');
+				link.download = 'union_believer_badge.png';
+				link.href = canvas.toDataURL();
+				link.click();
+			}
 		});
+	};
+
+	const handleExitSite = () => {
+		window.location.href = 'https://google.com';
 	};
 
 	return (
@@ -273,16 +371,25 @@ export default function UnionBelieverQuiz() {
 					transition={{ duration: 0.5, ease: 'easeOut' }}
 					className="flex flex-col items-center"
 				>
-					<div className="mb-6">
-						<Badge title={title} score={score} name={name} />
+					<div className="mb-4 text-center">
+						<div className="text-2xl font-bold mb-2 text-cyan-400">Hello, {name}!</div>
+						<div className="text-lg text-white mb-1">Your score was <span className="font-bold">{score}/100</span> and you are now:</div>
+						<div className="text-xl font-bold text-glow mb-2">{title}</div>
+						<div className="text-base text-gray-300">Spread the word and keep believing in Union!</div>
 					</div>
-					<div className="space-y-3 flex flex-col items-center">
-						<button onClick={handleImage} className="btn bg-cyan-500/80 hover:bg-cyan-400/80 text-white">
+					<div className="mb-6">
+						<Badge title={title} score={score} name={name} isLive={true} />
+					</div>
+					<div className="flex flex-wrap gap-3 justify-center w-full max-w-xs">
+						<button onClick={handleImage} className="btn bg-cyan-500/80 hover:bg-cyan-400/80 text-white flex-1 min-w-[140px]">
 							⬇️ Download Card
+						</button>
+						<button onClick={handleShare} className="btn bg-blue-500/80 hover:bg-blue-400/80 text-white flex-1 min-w-[140px]">
+							📤 Share Card
 						</button>
 						<button
 							onClick={() => window.location.reload()}
-							className="btn bg-gray-700/80 hover:bg-gray-600/80 text-white"
+							className="btn bg-gray-700/80 hover:bg-gray-600/80 text-white flex-1 min-w-[140px]"
 						>
 							🔁 Restart Quiz
 						</button>
@@ -361,6 +468,9 @@ export default function UnionBelieverQuiz() {
 						)}
 					</div>
 				</motion.div>
+			)}
+			{showNotBelieverModal && (
+				<NotBelieverModal onExit={handleExitSite} />
 			)}
 		</div>
 	);

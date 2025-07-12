@@ -1,64 +1,77 @@
 import React from 'react';
 
-const Badge = ({ title, score, name }) => {
+const getInitial = (name) => (name && name.length > 0 ? name[0].toUpperCase() : '?');
+
+const Badge = ({ title, score, name, isLive }) => {
   return (
     <div
       id="result-badge"
       style={{
         width: '400px',
-        height: '520px',
-        background: 'linear-gradient(180deg, #18181b 0%, #23272f 100%)',
-        borderRadius: '0.9rem',
-        boxShadow: '0 2px 16px 0 #0ff2, 0 1px 4px 0 #fff1',
+        height: '420px',
+        background: '#0A0808',
+        borderRadius: '1.1rem',
+        boxShadow: '0 2px 16px 0 #0008, 0 1px 4px 0 #0ff2',
         fontFamily: 'Manrope, sans-serif',
-        color: 'white',
+        color: '#fff',
         textAlign: 'center',
         padding: '2rem 1.2rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        border: '1.5px solid #0ff4',
+        border: '2px solid #0ff',
         margin: '0 auto',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Animated confetti background */}
-      <div style={{
-        position: 'absolute',
-        top: 0, left: 0, width: '100%', height: '100%',
-        pointerEvents: 'none',
-        zIndex: 0,
-        opacity: 0.18,
-        background: 'repeating-linear-gradient(135deg, #0ff2 0 2px, transparent 2px 20px)',
-        animation: 'badgeConfetti 2.5s linear infinite',
-      }} />
-      <style>{`
-        @keyframes badgeConfetti {
-          0% { background-position: 0 0; }
-          100% { background-position: 40px 40px; }
-        }
-      `}</style>
-      <div style={{ width: '100%', marginBottom: '0.5rem', zIndex: 1 }}>
-        <img src="/logo.png" alt="Union Logo" style={{ width: '40px', margin: '0 auto', display: 'block', borderRadius: '0.5rem' }} onError={e => e.target.style.display = 'none'} />
+      {/* Top logo and Union Build */}
+      <div style={{ width: '100%', marginBottom: '0.5rem', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+        <img src="/union-logo.png.jpg" alt="Union Logo" style={{ width: '36px', height: '36px', borderRadius: '0.5rem', background: '#fff', objectFit: 'contain' }} onError={e => e.target.style.display = 'none'} />
+        <span style={{ fontWeight: 700, fontSize: '1.15rem', color: '#0ff', letterSpacing: '0.01em', fontFamily: 'Manrope, sans-serif' }}>Union Build</span>
       </div>
-      <div style={{ marginTop: '0.5rem', width: '100%', zIndex: 1 }}>
-        <div style={{ fontSize: '2.2rem', marginBottom: '0.5rem', filter: 'drop-shadow(0 0 8px #0ff)' }}>🎉</div>
-        <img
-          src="/union-icon.png"
-          alt="Badge Icon"
-          style={{ width: '70px', margin: '0 auto 1.2rem', display: 'block', filter: 'drop-shadow(0 0 8px #0ff)' }}
-          onError={e => e.target.style.display = 'none'}
-        />
+      <div style={{ marginTop: '0.5rem', width: '100%', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Avatar placeholder */}
+        <div style={{
+          width: 64,
+          height: 64,
+          borderRadius: '50%',
+          background: 'linear-gradient(135deg, #0ff 40%, #222 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 32,
+          fontWeight: 800,
+          color: '#222',
+          marginBottom: 12,
+          boxShadow: '0 0 8px #0ff6',
+          lineHeight: 1,
+          textAlign: 'center',
+        }}>
+          {getInitial(name)}
+        </div>
         <h1 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0ff', textShadow: '0 0 8px #0ff', marginBottom: '0.5rem', fontFamily: 'Manrope, sans-serif' }}>{title}</h1>
         <p style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0.5rem 0', color: '#fff' }}>Believer Score: {score}/100</p>
         {name && <p style={{ fontSize: '1rem', margin: 0, color: '#fff', fontWeight: 500 }}>Name: {name}</p>}
       </div>
-      <div style={{ width: '100%', marginTop: 'auto', zIndex: 1 }}>
-        <p style={{ fontSize: '0.93rem', color: '#0ff', textShadow: '0 0 4px #0ff', margin: 0, fontFamily: 'Manrope, sans-serif' }}>
-          🏴‍☠️ Follow <strong>@0xSerKing</strong> on X for more zk heat
-        </p>
+      <div style={{ width: '100%', marginTop: 'auto', zIndex: 1, position: 'relative' }}>
+        {isLive ? (
+          <a
+            href="https://x.com/0xSerKing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontSize: '0.93rem', color: '#0ff', textShadow: '0 0 4px #0ff', margin: 0, fontFamily: 'Manrope, sans-serif', textDecoration: 'underline', display: 'inline-block' }}
+          >
+            🏴‍☠️ Follow <strong>@0xSerKing</strong> on X for more zk heat
+          </a>
+        ) : (
+          <p style={{ fontSize: '0.93rem', color: '#0ff', textShadow: '0 0 4px #0ff', margin: 0, fontFamily: 'Manrope, sans-serif' }}>
+            🏴‍☠️ Follow <strong>@0xSerKing</strong> on X for more zk heat
+          </p>
+        )}
+        {/* Union Build logo watermark */}
+        <img src="/union-logo.png.jpg" alt="Union Build Logo" style={{ position: 'absolute', bottom: 0, right: 0, width: '60px', opacity: 0.13, pointerEvents: 'none', zIndex: 2 }} onError={e => e.target.style.display = 'none'} />
       </div>
     </div>
   );
