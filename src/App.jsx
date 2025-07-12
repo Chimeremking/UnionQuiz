@@ -183,7 +183,7 @@ const NameInputPage = ({ name, setName, onConfirm }) => (
 				onClick={() => name.trim().length > 0 && onConfirm()}
 				className="px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-blue-500/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 mt-8"
 			>
-				✅ Confirm Name
+				✅ Proceed
 			</motion.button>
 		</motion.div>
 	</div>
@@ -197,7 +197,7 @@ const NotBelieverModal = ({ onExit }) => (
 	>
 		<motion.div
 			initial={{ scale: 0.8, opacity: 0 }}
-			animate={{ scale: 1, opacity: 1 }}
+			animateName={{ scale: 1, opacity: 1 }}
 			transition={{ type: "spring", damping: 25, stiffness: 300 }}
 			className="bg-gradient-to-b from-red-900/90 to-red-800/90 border-2 border-red-500 p-8 rounded-2xl shadow-2xl max-w-md mx-4 text-center"
 		>
