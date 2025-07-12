@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  @apply bg-black text-white font-tech;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px;
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 2rem;
+}
+
+.quiz-screen {
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.result-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.text-glow {
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
+.glow-border {
+  border: 2px solid #00f2ff;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5), 0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+.card-glass {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.font-tech {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.zkgm-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.zkgm-float {
+  position: absolute;
+  top: 110vh;
+  left: 0;
+  font-size: 2rem;
+  white-space: nowrap;
+  color: white;
+  opacity: 0.07;
+  animation: floatZKGM linear infinite;
+}
+
+@keyframes floatZKGM {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.07;
+  }
+  50% {
+    opacity: 0.05;
+  }
+  80% {
+    opacity: 0.03;
+  }
+  100% {
+    transform: translateY(-220vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+.glow-text {
+  text-shadow: 0 0 5px white, 0 0 10px cyan;
+}
+
+.answer-box, .name-input {
+  width: 100%;
+  padding: 1rem;
+  color: black;
+  border-radius: 8px;
+  margin-top: 1rem;
+  resize: none;
+}
+
+.btn, .btn-green, .btn-secondary {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn {
+  background-color: #1e40af;
+}
+
+.btn-green {
+  background-color: #059669;
+}
+
+.btn-secondary {
+  background-color: #4b5563;
+}
+
+.btn:hover {
+  background-color: #1e3a8a;
+}
+
+.btn-green:hover {
+  background-color: #047857;
+}
+
+.btn-secondary:hover {
+  background-color: #374151;
+}
