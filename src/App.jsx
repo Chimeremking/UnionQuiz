@@ -197,7 +197,7 @@ const NotBelieverModal = ({ onExit }) => (
 	>
 		<motion.div
 			initial={{ scale: 0.8, opacity: 0 }}
-			animateName={{ scale: 1, opacity: 1 }}
+			animate={{ scale: 1, opacity: 1 }}
 			transition={{ type: "spring", damping: 25, stiffness: 300 }}
 			className="bg-gradient-to-b from-red-900/90 to-red-800/90 border-2 border-red-500 p-8 rounded-2xl shadow-2xl max-w-md mx-4 text-center"
 		>
