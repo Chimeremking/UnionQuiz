@@ -1,11 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap");
+@import "tailwindcss";
+
 body {
   margin: 0;
-  font-family: 'Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Manrope", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

@@ -1,14 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap");
+@import "tailwindcss";
+
+* {
+  font-family: "Manrope", sans-serif;
+}
 
 body {
   background-color: black;
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Manrope", sans-serif;
   color: white;
-  @apply bg-black text-white font-tech;
+  @apply bg-black text-white;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 200px;
@@ -31,15 +34,93 @@ body {
   margin: 0 auto;
 }
 
-.result-card {
-  background: rgba(255, 255, 255, 0.05);
+.result-card,
+.badge-container {
+  background: rgba(24, 24, 27, 0.98);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 16px 0 #0ff2, 0 1px 4px 0 #fff1;
+  font-family: "Manrope", sans-serif;
 }
 
+/* Soften heading glow */
 .text-glow {
-  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  text-shadow: 0 0 6px #0ff, 0 0 12px #0ff, 0 0 2px #fff;
+  filter: blur(0.2px);
+}
+
+.glow-text {
+  text-shadow: 0 0 3px #fff, 0 0 6px #0ff;
+  filter: blur(0.1px);
+}
+
+/* Card hover/active box effect */
+.card-animated {
+  transition: box-shadow 0.3s, transform 0.2s;
+  border-radius: 1rem;
+}
+.card-animated:hover {
+  box-shadow: 0 2px 24px 0 #0ff2, 0 1.5px 8px 0 #fff2;
+  transform: scale(1.01);
+}
+.card-animated:active {
+  box-shadow: 0 1px 8px 0 #0ff1, 0 1px 2px 0 #fff1;
+  transform: scale(0.99);
+}
+
+/* Custom radio buttons */
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0px #0ff0;
+  position: relative;
+}
+.option-label:hover {
+  background: rgba(0, 255, 255, 0.07);
+  box-shadow: 0 0 8px #0ff2;
+}
+.option-label input[type="radio"] {
+  display: none;
+}
+.custom-radio {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid #0ff;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.custom-radio-checked {
+  border-color: #0ff;
+  box-shadow: 0 0 8px #0ff6;
+}
+.custom-radio-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: #0ff;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.custom-radio-checked .custom-radio-dot {
+  opacity: 1;
+}
+
+/* Stack options vertically */
+.options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .glow-border {
@@ -60,12 +141,14 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.font-tech {
-  font-family: 'Orbitron', sans-serif;
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .zkgm-bg {
@@ -107,27 +190,52 @@ body {
   }
 }
 
-.glow-text {
-  text-shadow: 0 0 5px white, 0 0 10px cyan;
-}
-
-.answer-box, .name-input {
+.answer-box,
+.name-input,
+input[type="text"],
+textarea {
   width: 100%;
-  padding: 1rem;
-  color: black;
-  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+  color: #222;
+  background: #f8fafc;
+  border-radius: 0.7rem;
+  border: 1.5px solid #e5e7eb;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.05rem;
   margin-top: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 2px #0001;
   resize: none;
 }
+.answer-box:focus,
+.name-input:focus,
+input[type="text"]:focus,
+textarea:focus {
+  border: 1.5px solid #0ff;
+  box-shadow: 0 0 0 2px #0ff2;
+  background: #fff;
+}
 
-.btn, .btn-green, .btn-secondary {
-  padding: 0.75rem 1.5rem;
+.btn,
+.btn-green,
+.btn-secondary,
+button {
+  padding: 0.7rem 1.2rem;
   margin: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.7rem;
   color: white;
   border: none;
   cursor: pointer;
-  transition: background 0.2s ease;
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  transition: background 0.2s, box-shadow 0.2s, border-radius 0.2s;
+}
+
+button {
+  border-radius: 0.7rem !important;
+  cursor: pointer !important;
+  font-family: "Manrope", sans-serif;
 }
 
 .btn {
@@ -152,4 +260,12 @@ body {
 
 .btn-secondary:hover {
   background-color: #374151;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-family: "Manrope", sans-serif;
 }
