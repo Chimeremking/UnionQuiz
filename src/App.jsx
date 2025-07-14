@@ -224,6 +224,96 @@ function shuffle(array) {
 	return array;
 }
 
+const WelcomePage = ({ onContinue }) => (
+	<div className="app-container relative">
+		<div className="zkgm-bg">
+			<ZkgmAnimation />
+		</div>
+		<motion.div
+			initial={{ opacity: 0, y: 40 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.7, ease: 'easeOut' }}
+			className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_left,_#0ff2,_transparent)] opacity-20 pointer-events-none z-0 animate-pulse"
+		/>
+		<motion.div
+			initial={{ scale: 0.96, opacity: 0 }}
+			animate={{ scale: 1, opacity: 1 }}
+			transition={{ duration: 0.7, delay: 0.2, ease: 'anticipate' }}
+			className="z-10 backdrop-blur-lg bg-gradient-to-b from-white/5 to-black/10 border border-white/20 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl max-w-sm md:max-w-xl text-center mx-auto w-full"
+		>
+			<div className="mb-4 md:mb-6">
+				<h1 className="text-2xl md:text-4xl font-extrabold text-cyan-400 mb-2 tracking-tight drop-shadow-lg" style={{ letterSpacing: '0.01em' }}>
+					Union Believer Quiz Tool
+				</h1>
+			</div>
+			<h1 className="text-3xl md:text-5xl font-bold text-glow mb-4 md:mb-6 tracking-tight">
+				Welcome to the Union Believer Quiz <span className="align-middle">🔮</span>
+			</h1>
+			<p className="text-base md:text-lg leading-relaxed mb-3 md:mb-4 text-gray-200">
+				You think you know Union? Let's find out. <span className="align-middle">💭</span> This isn't just any quiz —
+				it's a community check-in, a lore tap-in, and a badge of true zkGM belief.
+			</p>
+			<p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
+				Answer <span className="font-semibold text-cyan-400">15</span> questions about Union's chain moves and community magic. Score
+				high, and you'll earn a custom badge proving you've been <em>building where it matters</em>.
+			</p>
+			<motion.p
+				className="text-sm md:text-md text-cyan-400 italic mb-6 md:mb-8 animate-pulse"
+				initial={{ opacity: 0, y: 10 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ delay: 0.7 }}
+			>
+				Only real ones get past Level 6 <span className="align-middle">🔓</span>
+			</motion.p>
+			<motion.button
+				whileHover={{ scale: 1.07 }}
+				whileTap={{ scale: 0.97 }}
+				onClick={onContinue}
+				className="px-6 md:px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-gray-600/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 text-sm md:text-base"
+			>
+				🚀 Test My Knowledge
+			</motion.button>
+		</motion.div>
+	</div>
+);
+
+const NameInputPage = ({ name, setName, onConfirm }) => (
+	<div className="app-container relative">
+		<ZkgmAnimation />
+		<motion.div
+			initial={{ opacity: 0, y: 40 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.7, ease: 'easeOut' }}
+			className="absolute inset-0 z-0 bg-black/10 backdrop-blur-sm"
+		/>
+		<motion.div
+			initial={{ scale: 0.96, opacity: 0 }}
+			animate={{ scale: 1, opacity: 1 }}
+			transition={{ duration: 0.7, delay: 0.2, ease: 'anticipate' }}
+			className="z-10 backdrop-blur-lg bg-white/10 border border-white/20 p-6 md:p-10 rounded-2xl shadow-lg text-center max-w-sm md:max-w-md mx-auto relative w-full"
+		>
+			<h2 className="text-2xl md:text-3xl font-bold text-glow mb-4 md:mb-6 tracking-tight">
+				What's your name, Believer? <span className="align-middle">✨</span>
+			</h2>
+			<input
+				type="text"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+				placeholder="Type your name..."
+				className="name-input bg-white/80 text-gray-900 placeholder-gray-400 border border-gray-200 focus:ring-2 focus:ring-cyan-400 focus:outline-none transition-all duration-200"
+			/>
+			<motion.button
+				whileHover={{ scale: 1.07 }}
+				whileTap={{ scale: 0.97 }}
+				onClick={() => name.trim().length > 0 && onConfirm()}
+				className="px-6 md:px-8 py-3 bg-gradient-to-r from-cyan-500/80 to-gray-600/80 text-white font-semibold rounded-full shadow-lg hover:from-cyan-400 hover:to-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 mt-6 md:mt-8 text-sm md:text-base"
+			>
+				✅ Proceed
+			</motion.button>
+		</motion.div>
+	</div>
+);
+
 export default function UnionBelieverQuiz() {
 	const [step, setStep] = useState(-1);
 	const [name, setName] = useState('');
