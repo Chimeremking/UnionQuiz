@@ -11,6 +11,7 @@ import Badge from './Badge.jsx';
 import * as ReactDOM from 'react-dom/client';
 
 const questions = [
+	// 1
 	{
 		question: "What is Union’s primary goal in the blockchain ecosystem?",
 		options: [
@@ -21,6 +22,7 @@ const questions = [
 		],
 		answer: "Enabling secure cross-chain messaging and asset movement",
 	},
+	// 2
 	{
 		question: "Union combines zero‑knowledge cryptography with what other key innovation to enable secure cross‑chain transfers?",
 		options: [
@@ -31,6 +33,7 @@ const questions = [
 		],
 		answer: "Consensus verification",
 	},
+	// 3
 	{
 		question: "Name two types of assets or items that Union supports transferring across blockchains.",
 		options: [
@@ -41,6 +44,7 @@ const questions = [
 		],
 		answer: "Fungible tokens and NFTs",
 	},
+	// 4
 	{
 		question: "What term does Union use to describe its approach of using interchangeable components like ‘Prove’, ‘Verify’, and ‘Integrate’?",
 		options: [
@@ -51,6 +55,40 @@ const questions = [
 		],
 		answer: "Modular architecture",
 	},
+	// 5
+	{
+		question: "Which consensus engine does Union build upon to optimize for zero‑knowledge proving?",
+		options: [
+			"Tendermint",
+			"Celestia",
+			"ZKSync",
+			"Origami",
+		],
+		answer: "Origami",
+	},
+	// 6
+	{
+		question: "What is Voyager in Union’s ecosystem?",
+		options: [
+			"A wallet for Union users",
+			"A smart contract that deploys NFTs",
+			"A relayer that listens to chain events and submits proofs",
+			"A zero-knowledge proof circuit",
+		],
+		answer: "A relayer that listens to chain events and submits proofs",
+	},
+	// 7
+	{
+		question: "Why doesn't Union rely on trusted third parties (like multi‑sig or oracles) for message transfers?",
+		options: [
+			"It is cheaper to use relayers",
+			"They are not compatible with Ethereum",
+			"Union uses math-based cryptographic verification",
+			"Third parties charge high fees",
+		],
+		answer: "Union uses math-based cryptographic verification",
+	},
+	// 8
 	{
 		question: "Union extends the gold‑standard Inter‑Blockchain Communication Protocol with what kind of verification?",
 		options: [
@@ -60,6 +98,63 @@ const questions = [
 			"Multi-party signature verification",
 		],
 		answer: "Zero-knowledge light client verification",
+	},
+	// 9
+	{
+		question: "Which programming languages or environments does Union support for integration?",
+		options: [
+			"Rust and Go only",
+			"Python and TypeScript only",
+			"Solidity, CosmWasm, and Move",
+			"JavaScript and Java",
+		],
+		answer: "Solidity, CosmWasm, and Move",
+	},
+	// 10
+	{
+		question: "What are the three core values listed under “Who is Union built for?”",
+		options: [
+			"Fast, Secure, Open",
+			"Private, Flexible, Popular",
+			"Modular, Safe, Decentralized",
+			"Scalable, Cheap, Easy",
+		],
+		answer: "Fast, Secure, Open",
+	},
+	// 11 (original 1)
+	{
+		question: 'What can you connect to the Union Dashboard to level up?',
+		options: [
+			'Your PlayStation account',
+			'Your X/Twitter account',
+			'Your Netflix subscription',
+			'Your gym membership',
+		],
+		answer: 'Your X/Twitter account',
+	},
+	// 12 (original 2)
+	{
+		question: 'Who is your favorite Union Maxi?',
+		options: ['Opeyemi', 'Prifti', 'Okwybobo', 'Udochukwu'],
+		answer: 'Opeyemi',
+	},
+	// 13 (original 3)
+	{
+		question: 'Which level had the most users in the V1 testnet?',
+		options: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
+		answer: 'Level 2',
+	},
+	// 14 (original 4)
+	{
+		question: 'How many active testers were hyped for the Union Build Ceremony?',
+		options: ['100K', '300K+', '500K', '1M'],
+		answer: '300K+',
+	},
+	// 15 (original 8)
+	{
+		question: 'When did you join Union Build testnet?',
+		options: ['2023', '2025', '2028', '2024'],
+		yearSensitive: true,
 	},
 ];
 
@@ -215,8 +310,15 @@ export default function UnionBelieverQuiz() {
 			questions.forEach((q, idx) => {
 				const ans = answers[idx];
 				if (!ans) return;
-				if (q.answer && ans === q.answer) total += 20;
+				if (q.answer && ans === q.answer) total += (100 / questions.length);
+				if (q.yearSensitive) {
+					if (ans === '2024') total += (100 / questions.length) * 0.7;
+					else if (ans === '2025') total += (100 / questions.length) * 0.3;
+					else if (ans === '2023') total += (100 / questions.length) * 0.5;
+					else total += (100 / questions.length) * 0.1;
+				}
 			});
+			total = Math.round(total);
 			setScore(total);
 
 			// Show error modal for scores below 30
