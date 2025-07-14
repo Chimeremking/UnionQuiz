@@ -1,6 +1,6 @@
 // Final Union Believer Quiz App ✨
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import './App.css';
 import ZkgmAnimation from './ZkgmAnimation';
@@ -290,6 +290,7 @@ export default function UnionBelieverQuiz() {
 	const [loading, setLoading] = useState(false);
 	const [downloadNode, setDownloadNode] = useState(null);
 	const [showNotBelieverModal, setShowNotBelieverModal] = useState(false);
+	const screenshotBlockerRef = useRef(null);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -386,8 +387,65 @@ export default function UnionBelieverQuiz() {
 		window.location.href = 'https://google.com';
 	};
 
+	// Screenshot prevention logic
+	useEffect(() => {
+		const blockScreenshot = (e) => {
+			// Block PrintScreen key
+			if (e.key === 'PrintScreen') {
+				e.preventDefault();
+				// Try to clear clipboard (not always supported)
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText('Screenshots are disabled on this quiz.');
+				}
+				return false;
+			}
+			// Block Ctrl+S, Ctrl+U, F12 (save, view source, devtools)
+			if ((e.ctrlKey && (e.key === 's' || e.key === 'u')) || e.key === 'F12') {
+				e.preventDefault();
+				return false;
+			}
+		};
+		const blockContextMenu = (e) => {
+			e.preventDefault();
+		};
+		if (step >= 0 && score === null && !showNotBelieverModal) {
+			document.addEventListener('keydown', blockScreenshot);
+			document.addEventListener('contextmenu', blockContextMenu);
+			// Add overlay to block screen capture tools
+			if (screenshotBlockerRef.current) {
+				screenshotBlockerRef.current.style.display = 'block';
+			}
+		} else {
+			document.removeEventListener('keydown', blockScreenshot);
+			document.removeEventListener('contextmenu', blockContextMenu);
+			if (screenshotBlockerRef.current) {
+				screenshotBlockerRef.current.style.display = 'none';
+			}
+		}
+		return () => {
+			document.removeEventListener('keydown', blockScreenshot);
+			document.removeEventListener('contextmenu', blockContextMenu);
+		};
+	}, [step, score, showNotBelieverModal]);
+
 	return (
 		<div className="app-container relative">
+			{/* Screenshot blocker overlay (only visible during quiz) */}
+			<div
+				ref={screenshotBlockerRef}
+				style={{
+					display: 'none',
+					position: 'fixed',
+					top: 0,
+					left: 0,
+					width: '100vw',
+					height: '100vh',
+					zIndex: 10000,
+					background: 'rgba(0,0,0,0.01)',
+					pointerEvents: 'none',
+					userSelect: 'none',
+				}}
+			/>
 			{/* Make the floating zkGM persistent across steps */}
 			<div className="zkgm-bg">
 				<ZkgmAnimation />
