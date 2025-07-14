@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import Badge from './Badge.jsx';
 import * as ReactDOM from 'react-dom/client';
 
-const questions = [
+const allQuestions = [
 	// 1
 	{
 		question: "What is Union’s primary goal in the blockchain ecosystem?",
@@ -121,7 +121,62 @@ const questions = [
 		],
 		answer: "Fast, Secure, Open",
 	},
-	// 11 (original 1)
+	// 11
+	{
+		question: "What is the name of Union’s consensus engine optimized for zero-knowledge proving?",
+		options: [
+			"CometBFT",
+			"CometBLS",
+			"TendermintZK",
+			"BLS-ProofChain",
+		],
+		answer: "CometBLS",
+	},
+	// 12
+	{
+		question: "Which component handles generating ZK proofs of consensus within Union?",
+		options: [
+			"Voyager",
+			"CometBLS",
+			"Galois",
+			"Light Client",
+		],
+		answer: "Galois",
+	},
+	// 13
+	{
+		question: "What role does Voyager play in the Union architecture?",
+		options: [
+			"It validates block headers on-chain",
+			"It relays block‑header events and proofs between chains",
+			"It serves as a light client verifier",
+			"It aggregates signatures off‑chain",
+		],
+		answer: "It relays block‑header events and proofs between chains",
+	},
+	// 14
+	{
+		question: "Union’s modular architecture has three layers. Which is NOT one of them?",
+		options: [
+			"CometBLS",
+			"CircuitMaster",
+			"Galois",
+			"Voyager",
+		],
+		answer: "CircuitMaster",
+	},
+	// 15
+	{
+		question: "What does Union use to identify different blockchains in its Universal Chain Services (UCS)?",
+		options: [
+			"Blockchain UUIDs",
+			"IP addresses",
+			"Universal Chain ID (UCS04)",
+			"Smart contract addresses",
+		],
+		answer: "Universal Chain ID (UCS04)",
+	},
+	// 16 (original 1)
 	{
 		question: 'What can you connect to the Union Dashboard to level up?',
 		options: [
@@ -132,31 +187,56 @@ const questions = [
 		],
 		answer: 'Your X/Twitter account',
 	},
-	// 12 (original 2)
+	// 17 (original 2)
 	{
 		question: 'Who is your favorite Union Maxi?',
 		options: ['Opeyemi', 'Prifti', 'Okwybobo', 'Udochukwu'],
 		answer: 'Opeyemi',
 	},
-	// 13 (original 3)
+	// 18 (original 3)
 	{
 		question: 'Which level had the most users in the V1 testnet?',
 		options: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
 		answer: 'Level 2',
 	},
-	// 14 (original 4)
+	// 19 (original 4)
 	{
 		question: 'How many active testers were hyped for the Union Build Ceremony?',
 		options: ['100K', '300K+', '500K', '1M'],
 		answer: '300K+',
 	},
-	// 15 (original 8)
+	// 20 (original 8)
 	{
 		question: 'When did you join Union Build testnet?',
 		options: ['2023', '2025', '2028', '2024'],
 		yearSensitive: true,
 	},
 ];
+
+// Helper to shuffle an array
+function shuffle(array) {
+	let currentIndex = array.length, randomIndex;
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+	return array;
+}
+
+// On mount, select 10 random from first 15, always include last 5, then shuffle
+const [quizQuestions, setQuizQuestions] = useState([]);
+useEffect(() => {
+	// Only set once per quiz
+	if (quizQuestions.length === 0) {
+		const first15 = allQuestions.slice(0, 15);
+		const last5 = allQuestions.slice(15);
+		const random10 = shuffle([...first15]).slice(0, 10);
+		const quiz = shuffle([...random10, ...last5]);
+		setQuizQuestions(quiz);
+	}
+	// eslint-disable-next-line
+}, []);
 
 const WelcomePage = ({ onContinue }) => (
 	<div className="app-container relative">
@@ -301,22 +381,22 @@ export default function UnionBelieverQuiz() {
 	};
 
 	const evaluateScore = () => {
-		if (Object.keys(answers).length !== questions.length) {
+		if (Object.keys(answers).length !== quizQuestions.length) {
 			alert('Please answer all the questions.');
 			return;
 		}
 		setLoading(true);
 		setTimeout(() => {
 			let total = 0;
-			questions.forEach((q, idx) => {
+			quizQuestions.forEach((q, idx) => {
 				const ans = answers[idx];
 				if (!ans) return;
-				if (q.answer && ans === q.answer) total += (100 / questions.length);
+				if (q.answer && ans === q.answer) total += (100 / quizQuestions.length);
 				if (q.yearSensitive) {
-					if (ans === '2024') total += (100 / questions.length) * 0.7;
-					else if (ans === '2025') total += (100 / questions.length) * 0.3;
-					else if (ans === '2023') total += (100 / questions.length) * 0.5;
-					else total += (100 / questions.length) * 0.1;
+					if (ans === '2024') total += (100 / quizQuestions.length) * 0.7;
+					else if (ans === '2025') total += (100 / quizQuestions.length) * 0.3;
+					else if (ans === '2023') total += (100 / quizQuestions.length) * 0.5;
+					else total += (100 / quizQuestions.length) * 0.1;
 				}
 			});
 			total = Math.round(total);
@@ -509,14 +589,14 @@ export default function UnionBelieverQuiz() {
 					className="quiz-screen card-animated z-10 backdrop-blur-md bg-white/10 border border-white/20 p-4 md:p-8 rounded-2xl shadow-lg max-w-sm md:max-w-xl mx-auto relative mt-4 md:mt-8 w-full"
 				>
 					<h2 className="text-lg md:text-xl mb-4 text-glow font-bold">
-						{`Question ${step + 1} of ${questions.length}`}
+						{`Question ${step + 1} of ${quizQuestions.length}`}
 					</h2>
 					<p className="question-text">
-						{questions[step].question}
+						{quizQuestions[step].question}
 					</p>
-					{questions[step].options ? (
+					{quizQuestions[step].options ? (
 						<div className="options-stack">
-							{questions[step].options.map((opt, i) => (
+							{quizQuestions[step].options.map((opt, i) => (
 								<label
 									key={i}
 									htmlFor={`q${step}_opt${i}`}
@@ -556,7 +636,7 @@ export default function UnionBelieverQuiz() {
 						>
 							Previous
 						</button>
-						{step < questions.length - 1 ? (
+						{step < quizQuestions.length - 1 ? (
 							<button onClick={() => setStep(step + 1)} className="px-4 md:px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl text-sm">
 								Next
 							</button>
