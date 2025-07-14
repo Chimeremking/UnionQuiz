@@ -12,90 +12,54 @@ import * as ReactDOM from 'react-dom/client';
 
 const questions = [
 	{
-		question: 'What can you connect to the Union Dashboard to level up?',
+		question: "What is Union’s primary goal in the blockchain ecosystem?",
 		options: [
-			'Your PlayStation account',
-			'Your X/Twitter account',
-			'Your Netflix subscription',
-			'Your gym membership',
+			"Creating new layer-1 chains",
+			"Enabling secure cross-chain messaging and asset movement",
+			"Launching decentralized exchanges",
+			"Building on top of Ethereum only",
 		],
-		answer: 'Your X/Twitter account',
+		answer: "Enabling secure cross-chain messaging and asset movement",
 	},
 	{
-		question: 'Who is your favorite Union Maxi?',
-		options: ['Opeyemi', 'Prifti', 'Okwybobo', 'Udochukwu'],
-	},
-	{
-		question: 'Which level had the most users in the V1 testnet?',
-		options: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
-		answer: 'Level 2',
-	},
-	{
-		question: 'How many active testers were hyped for the Union Build Ceremony?',
-		options: ['100K', '300K+', '500K', '1M'],
-		answer: '300K+',
-	},
-	{
-		question: 'What is your rank on the leaderboard?',
+		question: "Union combines zero‑knowledge cryptography with what other key innovation to enable secure cross‑chain transfers?",
 		options: [
-			'Rank 1 to 100',
-			'Rank 100 to 1,000',
-			'Rank 1,000 to 10,000',
-			'Rank 10,000 to 100,000',
+			"Proof of Stake",
+			"Data availability sampling",
+			"Consensus verification",
+			"Transaction batching",
 		],
-		leaderboardRank: true,
+		answer: "Consensus verification",
 	},
 	{
-		question: 'Which chain below was part of the V1 testnet action?',
-		options: ['XION', 'Holesky', 'Sepolia', 'Corn'],
-		answer: 'Sepolia',
-	},
-	{
-		question: 'What is your rank as a Union Yapper?',
-		options: ['1–10', '10–50', '50–100', 'Not on any LB'],
-	},
-	{
-		question: 'When did you join Union Build testnet?',
-		options: ['2023', '2025', '2028', '2024'],
-		yearSensitive: true,
-	},
-	{
-		question: 'Which chain was rocking it in V1?',
-		options: ['Babylon', 'Sepolia', 'XION', 'Corn'],
-		answer: 'Sepolia',
-	},
-	{
-		question: 'How many accounts were active on the Union Dashboard?',
-		options: ['50K', '250K', '1M', '2M'],
-		answer: '1M',
-	},
-	{
-		question: 'How many community calls have you attended?',
-		options: ['1', '2', '3', '4'],
-	},
-	{
-		question: 'Which chain was a key player in V1 for asset transfers?',
-		options: ['Holesky', 'XION', 'Sepolia', 'Babylon'],
-		answer: 'Sepolia',
-	},
-	{
-		question: 'What is Union Build?',
+		question: "Name two types of assets or items that Union supports transferring across blockchains.",
 		options: [
-			'The zk-interoperability layer powering cross-chain apps',
-			'A DeFi staking protocol',
-			'A meme-based NFT collection',
+			"Tokens and databases",
+			"Files and smart contracts",
+			"Fungible tokens and NFTs",
+			"Accounts and usernames",
 		],
-		answer: 'The zk-interoperability layer powering cross-chain apps',
+		answer: "Fungible tokens and NFTs",
 	},
 	{
-		question: 'How many contributors showed up for the Union Build Ceremony?',
-		options: ['500', '5K+', '50K', '500K'],
-		answer: '5K+',
+		question: "What term does Union use to describe its approach of using interchangeable components like ‘Prove’, ‘Verify’, and ‘Integrate’?",
+		options: [
+			"Proof-of-Everything",
+			"Modular architecture",
+			"Union Fabric",
+			"Smart Routing",
+		],
+		answer: "Modular architecture",
 	},
 	{
-		question: 'What percentage of users reached Level 6 & up in the V1 testnet?',
-		options: ['1.92%', '12.39%', '24.14%', '73.04%'],
-		answer: '1.92%',
+		question: "Union extends the gold‑standard Inter‑Blockchain Communication Protocol with what kind of verification?",
+		options: [
+			"Layer-3 verification",
+			"Zero-knowledge light client verification",
+			"Trusted oracle verification",
+			"Multi-party signature verification",
+		],
+		answer: "Zero-knowledge light client verification",
 	},
 ];
 
@@ -201,16 +165,16 @@ const NotBelieverModal = ({ onExit }) => (
 			transition={{ type: "spring", damping: 25, stiffness: 300 }}
 			className="bg-gradient-to-b from-red-900/90 to-red-800/90 border-2 border-red-500 p-8 rounded-2xl shadow-2xl max-w-md mx-4 text-center"
 		>
-			<div className="text-6xl mb-4">🚫</div>
-			<h2 className="text-2xl font-bold text-red-200 mb-4">YOU ARE NOT A BELIEVER</h2>
+			<div className="text-6xl mb-4">😡🚨</div>
+			<h2 className="text-2xl font-bold text-red-200 mb-4">YOU ARE NOT A UNION BELIEVER</h2>
 			<p className="text-red-100 mb-6 leading-relaxed">
-				Your score is below 25. You clearly don't know Union well enough to be considered a believer.
+				Your score is below 30. This is an outrage! You clearly don't know Union well enough to even be here.
 			</p>
 			<p className="text-red-200 mb-6 font-semibold">
-				Please exit this site immediately. No profile card for you.
+				Please exit this site immediately. No badge, no glory, no second chances until you study up!
 			</p>
 			<p className="text-red-300 mb-8 italic">
-				Go and do something with your life.
+				Go and do something with your life. Union is not for the faint of heart.
 			</p>
 			<button
 				onClick={onExit}
@@ -251,46 +215,24 @@ export default function UnionBelieverQuiz() {
 			questions.forEach((q, idx) => {
 				const ans = answers[idx];
 				if (!ans) return;
-				if (q.answer && ans === q.answer) total += 10;
-				if (q.yearSensitive) {
-					if (ans === '2024') total += 7;
-					else if (ans === '2025') total += 3;
-					else if (ans === '2023') total += 5;
-					else total += 1;
-				}
-				if (q.leaderboardRank) {
-					if (ans === 'Rank 1 to 100') total += 7;
-					else if (ans === 'Rank 100 to 1,000') total += 5;
-					else if (ans === 'Rank 1,000 to 10,000') total += 3;
-					else total += 1;
-				}
-				if (q.leaderboardSensitive) {
-					const rank = parseInt(ans);
-					if (!isNaN(rank)) {
-						if (rank >= 1 && rank <= 20) total += 7;
-						else total += 2;
-					}
-				}
+				if (q.answer && ans === q.answer) total += 20;
 			});
-			total += Math.floor(Math.random() * 20);
-			total = Math.min(100, total);
 			setScore(total);
 
-			// Check if score is below 25
-			if (total < 25) {
+			// Show error modal for scores below 30
+			if (total < 30) {
 				setShowNotBelieverModal(true);
 				setLoading(false);
 				return;
 			}
 
-			if (total >= 91) setTitle('👑 ZK Ascendant');
-			else if (total >= 76) setTitle('🧙‍♂️ Trusted Relayer');
-			else if (total >= 61) setTitle('⚔️ Bridge Reformer');
-			else if (total >= 46) setTitle('🧢 Testnet Tourist');
-			else if (total >= 31) setTitle('🪞 Re-org Witness');
-			else setTitle('💀 Fallen Bridge Maxi');
+			if (total === 100) setTitle('🟣 True Goblin');
+			else if (total >= 80) setTitle('🏆 Union Champion');
+			else if (total >= 60) setTitle('🛠️ Union Builder');
+			else if (total >= 40) setTitle('🧭 Union Explorer');
+			else setTitle('🌱 Union Initiate');
 			setLoading(false);
-		}, 1500);
+		}, 1000);
 	};
 
 	const handleImage = () => {
